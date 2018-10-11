@@ -125,8 +125,8 @@ class rsyslog::client (
     fail('You need to define $ssl_ca in order to use SSL.')
   }
 
-  if $ssl and $remote_type != 'tcp' {
-    fail('You need to enable tcp in order to use SSL.')
+  if $rsyslog::ssl and ! ($remote_type == 'tcp' or $remote_type == 'relp') {
+    fail('You need to enable tcp or relp in order to use SSL.')
   }
 
   if $ssl_auth_mode != 'anon' and $ssl == false {
